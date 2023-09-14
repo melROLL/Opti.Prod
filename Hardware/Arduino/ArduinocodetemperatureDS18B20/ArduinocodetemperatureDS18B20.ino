@@ -1,3 +1,12 @@
+/*
+________          __  .__    __________                   .___
+\_____  \ _______/  |_|__|   \______   \_______  ____   __| _/
+ /   |   \\____ \   __\  |    |     ___/\_  __ \/  _ \ / __ | 
+/    |    \  |_> >  | |  |    |    |     |  | \(  <_> ) /_/ | 
+\_______  /   __/|__| |__| /\ |____|     |__|   \____/\____ | 
+        \/|__|             \/                              \/
+        */
+        
 #include "OneWire.h"           // Include the OneWire library for communication with the sensor
 #include "DallasTemperature.h"  // Include the DallasTemperature library for managing the sensor
 
