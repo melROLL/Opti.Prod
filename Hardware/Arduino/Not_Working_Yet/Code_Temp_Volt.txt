@@ -1,0 +1,53 @@
+// Define the analog pin for voltage measurement
+#define VOLT A1
+
+// Include the OneWire library for sensor communication
+#include "OneWire.h"
+
+// Include the DallasTemperature library for sensor management
+#include "DallasTemperature.h"
+
+// Variables for voltage measurement
+float volt, volts;
+
+// Create a OneWire object to communicate with the sensor on pin A2
+OneWire oneWire(A2);
+
+// Create a DallasTemperature object and link it to the OneWire object
+DallasTemperature ds(&oneWire);
+
+void setup() {
+  // Initialize serial communication at 9600 baud
+  Serial.begin(9600);
+
+  // Initialize the DallasTemperature sensor
+  ds.begin();
+}
+
+void loop() {
+  // Request temperature measurements from the sensor
+  ds.requestTemperatures();
+
+  // Read temperature in degrees Celsius from the sensor and store it in 't'
+  int t = ds.getTempCByIndex(0);
+
+  // Print the temperature in degrees Celsius
+  Serial.print("Temperature: ");
+  Serial.print(t);
+  Serial.println("C");  // Display "C" to indicate the unit (degrees Celsius)
+
+  /* Voltage Measurement */
+  int temp1 = analogRead(VOLT);
+  volts = (temp1 / 511.5) * 2.5;
+  delay(10);
+
+  /* Send to Serial */
+  Serial.print("Voltage: ");
+  Serial.print(volts);
+  Serial.print("V\t");
+
+  Serial.println("Solar Flux: ");
+
+  // Wait for 1 second before reading the temperature again
+  delay(1000);
+}
