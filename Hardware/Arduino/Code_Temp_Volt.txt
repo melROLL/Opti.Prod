@@ -1,3 +1,12 @@
+
+/*
+________          __  .__     __________                   .___
+\_____  \ _______/  |_|__|    \______   \_______  ____   __| _/
+ /   |   \\____ \   __\  |     |     ___/\_  __ \/  _ \ / __ | 
+/    |    \  |_> >  | |  |    |    |     |  | \(  <_> ) /_/ | 
+\_______  /   __/|__| |__| /\ |____|     |__|   \____/\____ | 
+        \/|__|             \/                              \/
+        */
 // Define the analog pin for voltage measurement
 #define VOLT A1
 
@@ -34,7 +43,7 @@ void loop() {
   // Print the temperature in degrees Celsius
   Serial.print("Temperature: ");
   Serial.print(t);
-  Serial.println("C");  // Display "C" to indicate the unit (degrees Celsius)
+  Serial.print("C ");  // Display "C" to indicate the non retarded unit (degrees Celsius)
 
   /* Voltage Measurement */
   int temp1 = analogRead(VOLT);
@@ -47,7 +56,7 @@ void loop() {
   Serial.print("V\t");
 
   Serial.println("Solar Flux: ");
-
+ Serial.print();
   // Wait for 1 second before reading the temperature again
   delay(1000);
 }
