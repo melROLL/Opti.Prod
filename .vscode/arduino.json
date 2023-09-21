@@ -1,0 +1,5 @@
+{
+    "board": "arduino:avr:uno",
+    "sketch": "Hardware\\Arduino\\Working\\codesolar_panel\\codesolar_panel.ino",
+    "port": "COM5"
+}
