@@ -1,62 +1,87 @@
-
 /*
-________          __  .__     __________                   .___
-\_____  \ _______/  |_|__|    \______   \_______  ____   __| _/
- /   |   \\____ \   __\  |     |     ___/\_  __ \/  _ \ / __ | 
+________          __  .__    __________                   .___
+\_____  \ _______/  |_|__|   \______   \_______  ____   __| _/
+ /   |   \\____ \   __\  |    |     ___/\_  __ \/  _ \ / __ | 
 /    |    \  |_> >  | |  |    |    |     |  | \(  <_> ) /_/ | 
 \_______  /   __/|__| |__| /\ |____|     |__|   \____/\____ | 
         \/|__|             \/                              \/
         */
-// Define the analog pin for voltage measurement
+
+/*
+  This code reads temperature and solar flux data from a sensor and a voltage sensor, 
+  and then prints the data to the serial monitor.
+*/
+
+#include "OneWire.h"           // Include the OneWire library for communication with the sensor
+#include "DallasTemperature.h"  // Include the DallasTemperature library for managing the sensor
+
+OneWire oneWire(A2);            // Create a OneWire object to communicate with the sensor on pin A2
+DallasTemperature ds(&oneWire); // Create a DallasTemperature object and associate it with the OneWire object
+
 #define VOLT A1
+float volt, volts; // Variables to store voltage readings
 
-// Include the OneWire library for sensor communication
-#include "OneWire.h"
+// Define the pin for the LED
+int ledPin = 2;
 
-// Include the DallasTemperature library for sensor management
-#include "DallasTemperature.h"
 
-// Variables for voltage measurement
-float volt, volts;
-
-// Create a OneWire object to communicate with the sensor on pin A2
-OneWire oneWire(A2);
-
-// Create a DallasTemperature object and link it to the OneWire object
-DallasTemperature ds(&oneWire);
-
-void setup() {
-  // Initialize serial communication at 9600 baud
-  Serial.begin(9600);
-
-  // Initialize the DallasTemperature sensor
-  ds.begin();
+void setup()
+{
+  Serial.begin(9600); // Initialize serial communication at a baud rate of 9600
+  ds.begin();          // Initialize the DallasTemperature sensor
 }
 
-void loop() {
-  // Request temperature measurements from the sensor
-  ds.requestTemperatures();
+void loop()
+{
+ digitalWrite(ledPin, LOW);
+  // Temperature Measurement
+  ds.requestTemperatures();   // Send a temperature measurement request to the sensor
+  int t = ds.getTempCByIndex(0); // Read the temperature in degrees Celsius from the sensor and store it in the 't' variable
 
-  // Read temperature in degrees Celsius from the sensor and store it in 't'
-  int t = ds.getTempCByIndex(0);
-
-  // Print the temperature in degrees Celsius
-  Serial.print("Temperature: ");
-  Serial.print(t);
-  Serial.print("C ");  // Display "C" to indicate the non retarded unit (degrees Celsius)
-
-  /* Voltage Measurement */
-  int temp1 = analogRead(VOLT);
-  volts = (temp1 / 511.5) * 2.5;
+  // Solar Flux Measurement
+  /*---------Voltage Measurement----------*/
+  int temp1 = analogRead(VOLT);  // Read the analog voltage from pin A1
+  volts = (temp1 / 511.5) * 2.5; // Calculate the voltage in volts based on the analog reading
   delay(10);
 
-  /* Send to Serial */
+  /*-------Solar Flux Calculation--------*/
+  int ResistorValue = 2;         // Resistor value in Kohms
+  float Surface = 1;            // Surface area in square meters
+  float Power = (volts * volts) / ResistorValue;  // Calculate power in watts (P=UI=(U*U)/R)
+  float Solar_Flux = Power * Surface;             // Calculate solar flux in mW/m^2
+  delay(10);
+
+
+  /*-------Current--------*/
+  float Current =  volts/ ResistorValue;  // Calculate current
+  delay(10);
+
+
+  // Printing the Measurements
+  /*------Send to Serial------*/
+  Serial.print("Temperature: ");
+  Serial.print(t);            // Print the temperature in degrees Celsius
+  Serial.print("C   ");       // Print "C" to indicate the unit of measurement (degrees Celsius)
+
   Serial.print("Voltage: ");
-  Serial.print(volts);
+  Serial.print(volts);        // Print the voltage in volts
   Serial.print("V\t");
 
-  Serial.println("Solar Flux: ");
- Serial.print();
-  // Wait for 1 second before reading the temperature again
-  delay(1000);
+  Serial.print("Power: ");
+  Serial.print(Power);        // Print the power in mili watts
+  Serial.print("mW  ");
+
+  Serial.print("Current: ");
+  Serial.print(Current);        // Print the power in mili watts
+  Serial.print("mA  ");
+
+  Serial.print("Solar Flux: ");
+  Serial.print(Solar_Flux);   // Print the solar flux in mW/m^2
+  Serial.println("mW.m^2");   // End the line
+
+ 
+  delay(500); // Wait for 500 milliseconds before taking the next reading
+  digitalWrite(ledPin, HIGH);
+    delay(100); // Wait for 500 milliseconds before taking the next reading
+  digitalWrite(ledPin, LOW);
 }
