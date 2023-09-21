@@ -46,9 +46,9 @@ void loop()
 
   /*-------Solar Flux Calculation--------*/
   int ResistorValue = 2;         // Resistor value in Kohms
-  float Surface = 1;            // Surface area in square meters
+  float Surface = 0.015400;            // Surface area in square meters
   float Power = (volts * volts) / ResistorValue;  // Calculate power in watts (P=UI=(U*U)/R)
-  float Solar_Flux = Power * Surface;             // Calculate solar flux in mW/m^2
+  float Solar_Flux = Power / Surface;             // Calculate solar flux in mW/m^2
   delay(10);
 
 
