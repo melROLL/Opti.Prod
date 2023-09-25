@@ -1373,7 +1373,7 @@
   (symbol (lib_id "Device:R") (at 41.91 54.61 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 29d24d91-c800-47f5-9097-96ec891eaa77)
-    (property "Reference" "330R" (at 44.45 53.34 0)
+    (property "Reference" "330R1" (at 44.45 53.34 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "R" (at 44.45 55.88 0)
@@ -1390,7 +1390,7 @@
     (instances
       (project "OptiprodV2"
         (path "/19de4d2e-807d-4105-96d5-33b255df2ff3"
-          (reference "330R") (unit 1)
+          (reference "330R1") (unit 1)
         )
       )
     )
@@ -1507,7 +1507,7 @@
   (symbol (lib_id "Device:R") (at 54.61 49.53 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 4e63884c-de2f-4756-a4dd-86a866855a19)
-    (property "Reference" "4.7K" (at 54.61 43.18 90)
+    (property "Reference" "4.7K1" (at 54.61 43.18 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "R" (at 54.61 45.72 90)
@@ -1524,7 +1524,7 @@
     (instances
       (project "OptiprodV2"
         (path "/19de4d2e-807d-4105-96d5-33b255df2ff3"
-          (reference "4.7K") (unit 1)
+          (reference "4.7K1") (unit 1)
         )
       )
     )
