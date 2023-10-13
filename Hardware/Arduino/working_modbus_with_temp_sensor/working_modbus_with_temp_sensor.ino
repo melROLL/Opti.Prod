@@ -1,3 +1,9 @@
+//how to connect the bme on an arduino mega 
+//first the bme vcc to 5v on the arduino
+//the bme GND to the arduino GND
+//the bme SCL to the arduino 21 pin
+//the bme SDA to the arduino 20 pin
+
 #include <SPI.h>
 #include <Wire.h>
 #include <Ethernet.h>
@@ -13,18 +19,19 @@
 
 #define SEALEVELPRESSURE_HPA (1013.25)
 
+//define mac & ip address for the ethernet shield
+//the ip address needs to be on the same network
 byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
 IPAddress ip(10, 3, 7, 8);
 
-
-int adc0_result;
-
+//initialize the sensor 
 Adafruit_BME680 bme;
 
+//define the port of modbus communication 502 by defualt
 EthernetServer ethServer(502);
-ModbusTCPServer modbusTCPServer;
 
-//const int ledPin = LED_BUILTIN;
+//initialize the server
+ModbusTCPServer modbusTCPServer;
 
 void setup() {
 
@@ -35,7 +42,7 @@ void setup() {
   }
   Serial.println("Ethernet Modbus TCP");
   Ethernet.begin(mac, ip);
-  Serial.print("heyy: ");
+  //check the ip address
   Serial.print(Ethernet.localIP());
 
   if (Ethernet.hardwareStatus() == EthernetNoHardware) {
@@ -55,6 +62,7 @@ void setup() {
     Serial.println("Ethernet cable is not connected.");
   }
 
+//start the ethernet serveer
   ethServer.begin();
 
   if (!modbusTCPServer.begin()) {
@@ -62,7 +70,7 @@ void setup() {
     while (1)
       ;
   }
-
+//configure the modbus holding registers
   modbusTCPServer.configureHoldingRegisters(0x00, 20);  // Configure 1 holding register at address 0x00
 
 
@@ -74,7 +82,10 @@ void setup() {
   bme.setGasHeater(320, 150);
 }
 
+
+
 void loop() {
+  //find the modbus client
   EthernetClient client = ethServer.available();
 
 
@@ -88,21 +99,26 @@ void loop() {
         Serial.println("Failed to perform reading :(");
         return;
       }
+
       modbusTCPServer.poll();
       delay(5);
-      Serial.println("temp1");
-      Serial.println(bme.temperature);
+      Serial.println("pressure");
+      Serial.println(bme.gas_resistance);
+
+      uint16_t swappedPressureData = swapBytes(bme.pressure); 
+      uint16_t swappedgazResistanceData = swapBytes(bme.gas_resistance); 
+
+      //add the sensor values to the modbus holding registers and read them on the modbusPoll software
       modbusTCPServer.holdingRegisterWrite(0x00, bme.temperature);
-     
-
-
-
-
-      // Update the holding register value
-      //modbusTCPServer.holdingRegisterWrite(0x00, myData);
+      modbusTCPServer.holdingRegisterWrite(0x01, swappedPressureData);   
+      modbusTCPServer.holdingRegisterWrite(0x02, swappedgazResistanceData);   
+      modbusTCPServer.holdingRegisterWrite(0x03, bme.humidity); 
     }
-    Serial.println("temp1");
-    Serial.println(bme.temperature);
     Serial.println("client disconnected");
   }
+}
+
+//to make it compatible with modbus registers
+uint16_t swapBytes(uint16_t value) {
+    return (value >> 8) | (value << 8);
 }
