@@ -10,7 +10,7 @@ Connect the SCL (Serial Clock) pin of the BME680 to the SCL (A5) pin on the Ardu
 BME680 to Arduino VIN (Optional):
 
 If your BME680 operates at 5V, you should connect it to the 5V output on the Arduino. However, many BME680 sensors operate at 3.3V, so connecting it to the 3.3V output is usually sufficient.
-
+x
 We also need the connect the PV sensor in the pin A0 of tha arduino 
  */
 
