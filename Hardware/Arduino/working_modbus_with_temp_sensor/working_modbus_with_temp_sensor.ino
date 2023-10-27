@@ -94,6 +94,9 @@ void loop() {
     modbusTCPServer.accept(client);
 
     while (client.connected()) {
+      int fluxSensorValue = analogRead(A0);
+      Serial.print("Flux Value: ");
+      Serial.println(fluxSensorValue);
 
       if (!bme.performReading()) {
         Serial.println("Failed to perform reading :(");
@@ -102,17 +105,18 @@ void loop() {
 
       modbusTCPServer.poll();
       delay(5);
-      Serial.println("pressure");
-      Serial.println(bme.gas_resistance);
+      Serial.println("temp");
+      Serial.println(bme.temperature);
 
       uint16_t swappedPressureData = swapBytes(bme.pressure); 
       uint16_t swappedgazResistanceData = swapBytes(bme.gas_resistance); 
 
       //add the sensor values to the modbus holding registers and read them on the modbusPoll software
       modbusTCPServer.holdingRegisterWrite(0x00, bme.temperature);
-      modbusTCPServer.holdingRegisterWrite(0x01, swappedPressureData);   
-      modbusTCPServer.holdingRegisterWrite(0x02, swappedgazResistanceData);   
+      modbusTCPServer.holdingRegisterWrite(0x01, bme.pressure);   
+      modbusTCPServer.holdingRegisterWrite(0x02, bme.gas_resistance);   
       modbusTCPServer.holdingRegisterWrite(0x03, bme.humidity); 
+      modbusTCPServer.holdingRegisterWrite(0x04, fluxSensorValue); 
     }
     Serial.println("client disconnected");
   }
