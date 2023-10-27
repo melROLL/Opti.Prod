@@ -254,19 +254,21 @@ def edit_area():
         update_listbox()
 
 def read_modbus_data():
-    """读取Modbus数据并更新界面"""
     selected_indices = area_listbox.curselection()
     if not selected_indices:
-        # No item is selected
+        # 未选择任何项目
         return
     selected_index = selected_indices[0]
     selected_area = area_listbox.get(selected_index)
 
     modbus_parameters = config[selected_area]
+    register_count = int(modbus_parameters['register_count']) 
+    register_address = int(modbus_parameters['register_address'], 0)
     client = ModbusTcpClient(modbus_parameters['ip'], modbus_parameters['port'])
     
-    response = client.read_holding_registers(modbus_parameters['register_address'],
-                                             modbus_parameters['register_count'])
+    response = client.read_holding_registers(register_address,
+                                             register_count,
+                                             unit=1)
     
     if response.isError():
         result_label.config(text="Modbus读取错误")
@@ -287,7 +289,6 @@ def update_time_label():
     root.after(1000, update_time_label)  # 每秒更新一次
 
 def update_data_periodically():
-    """定期更新Modbus数据"""
     while True:
         read_modbus_data()
         time.sleep(10)
@@ -350,8 +351,6 @@ update_thread = threading.Thread(target=update_data_periodically)
 update_thread.daemon = True
 update_thread.start()
 
-
-update_time_label() 
-
 root.geometry("800x250")
+update_time_label() 
 root.mainloop()
