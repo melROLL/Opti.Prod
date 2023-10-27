@@ -1,0 +1,32 @@
+/*
+  This code reads temperature data from a sensor and then prints the data to the serial monitor.
+*/
+
+#include "OneWire.h"           // Include the OneWire library for communication with the sensor
+#include "DallasTemperature.h"  // Include the DallasTemperature library for managing the sensor
+
+OneWire oneWire(A2);            // Create a OneWire object to communicate with the sensor on pin A2
+DallasTemperature ds(&oneWire); // Create a DallasTemperature object and associate it with the OneWire object
+
+
+void setup() {
+  Serial.begin(9600); // Initialize serial communication at a baud rate of 9600
+  ds.begin();        // Initialize the DallasTemperature sensor
+  pinMode(ledPin, OUTPUT); // Set the LED pin as an output
+}
+
+void loop() {
+  digitalWrite(ledPin, LOW);
+  
+  // Temperature Measurement
+  ds.requestTemperatures();   // Send a temperature measurement request to the sensor
+  float t = ds.getTempCByIndex(0); // Read the temperature in degrees Celsius from the sensor and store it in the 't' variable
+
+  // Printing the Temperature
+  Serial.print("Temperature: ");
+  Serial.print(t);            // Print the temperature in degrees Celsius
+  Serial.println(" °C");       // Print "°C" to indicate the unit of measurement
+
+  delay(500); // Wait for 500 milliseconds before taking the next reading
+
+}

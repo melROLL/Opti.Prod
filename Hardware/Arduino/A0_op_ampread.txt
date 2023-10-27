@@ -1,0 +1,19 @@
+void setup() {
+  Serial.begin(9600);
+  while (!Serial);
+
+ 
+  // Print a message
+  Serial.println("Analog Sensor Readings");
+}
+
+void loop() {
+  // Read analog value from pin A0
+  int sensorValue = analogRead(A0);
+
+  // Print the value on the Serial Monitor
+  Serial.print("Analog Value: ");
+  Serial.println(sensorValue);
+
+  delay(1000); // Wait for 1 second before the next reading
+}
