@@ -1,4 +1,4 @@
-//how to connect the bme on an arduino mega 
+//how to connect the bme on an arduino mega
 //first the bme vcc to 5v on the arduino
 //the bme GND to the arduino GND
 //the bme SCL to the arduino 21 pin
@@ -12,7 +12,7 @@
 #include <Adafruit_Sensor.h>
 #include "Adafruit_BME680.h"
 #include <Adafruit_GFX.h>
-#include <Adafruit_SSD1306.h> //this is the principal library :) 
+#include <Adafruit_SSD1306.h> //this is the principal library :)
 
 #define BME_SCK 13
 #define BME_MISO 12
@@ -29,7 +29,7 @@
 byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
 IPAddress ip(10, 3, 7, 8);
 
-//initialize the sensor 
+//initialize the sensor
 Adafruit_BME680 bme;
 
 Adafruit_SSD1306 display(ANCHO_PANTALLA, ALTO_PANTALLA, &Wire, -1);
@@ -118,19 +118,19 @@ void loop() {
       Serial.println("temp");
       Serial.println(bme.temperature);
 
-      uint16_t swappedPressureData = swapBytes(bme.pressure); 
-      uint16_t swappedgazResistanceData = swapBytes(bme.gas_resistance); 
+      uint16_t swappedPressureData = swapBytes(bme.pressure);
+      uint16_t swappedgazResistanceData = swapBytes(bme.gas_resistance);
 
       //add the sensor values to the modbus holding registers and read them on the modbusPoll software
       modbusTCPServer.holdingRegisterWrite(0x00, bme.temperature);
-      modbusTCPServer.holdingRegisterWrite(0x01, bme.pressure);   
-      modbusTCPServer.holdingRegisterWrite(0x02, bme.gas_resistance);   
-      modbusTCPServer.holdingRegisterWrite(0x03, bme.humidity); 
+      modbusTCPServer.holdingRegisterWrite(0x01, bme.pressure);  
+      modbusTCPServer.holdingRegisterWrite(0x02, bme.gas_resistance);  
+      modbusTCPServer.holdingRegisterWrite(0x03, bme.humidity);
       modbusTCPServer.holdingRegisterWrite(0x04, fluxSensorValue);
 
 
 
-      
+
 
   ////////////////////////
 
@@ -140,17 +140,28 @@ void loop() {
 #endif
     while (true);
   }
+  // Tamaño del texto
+  display.clearDisplay();
     // Tamaño del texto
   display.setTextSize(1);
   // Color del texto
   display.setTextColor(SSD1306_WHITE);
   // Posición del texto
-  display.setCursor(10, 32);
+  display.setCursor(3, 8);
   // Escribir texto
-  display.println("temp:"+bme.temperature);
+  display.println("   MoniMoney ");
+  display.println("   ");
+  display.print("Temperature: ");
+  display.print(bme.temperature);
+  display.println("   ");
+  display.print("Flux: ");
+  display.println(fluxSensorValue);
+  display.println("   ");
+  display.print("State: ");
+  display.println(0);
 
   // Enviar a pantalla
-  display.display(); 
+  display.display();
 
 
     }
