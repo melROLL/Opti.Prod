@@ -2202,7 +2202,7 @@
   (symbol (lib_id "Device:R") (at 76.2 105.41 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid cb765b63-9e0e-4d7b-89ae-b51092700d91)
-    (property "Reference" "R2" (at 76.2 99.06 90)
+    (property "Reference" "51K" (at 76.2 99.06 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "R" (at 76.2 101.6 90)
@@ -2219,7 +2219,7 @@
     (instances
       (project "OptiprodV2"
         (path "/19de4d2e-807d-4105-96d5-33b255df2ff3"
-          (reference "R2") (unit 1)
+          (reference "51K") (unit 1)
         )
       )
     )
