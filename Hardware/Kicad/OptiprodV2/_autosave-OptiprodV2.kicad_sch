@@ -1540,6 +1540,31 @@
     )
   )
 
+  (symbol (lib_id "Mechanical:MountingHole_Pad") (at 54.61 54.61 0) (unit 1)
+    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
+    (uuid 452e70ec-60b4-4edd-93c9-8cbd03548a86)
+    (property "Reference" "GNDIN1" (at 57.15 52.07 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Value" "MountingHole_Pad" (at 57.15 54.61 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Footprint" "Connector_Pin:Pin_D1.0mm_L10.0mm" (at 54.61 54.61 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Datasheet" "~" (at 54.61 54.61 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (pin "1" (uuid 61f60077-492a-48ce-92d9-a9cf1cc525f5))
+    (instances
+      (project "OptiprodV2"
+        (path "/19de4d2e-807d-4105-96d5-33b255df2ff3"
+          (reference "GNDIN1") (unit 1)
+        )
+      )
+    )
+  )
+
   (symbol (lib_id "Mechanical:MountingHole_Pad") (at 129.54 82.55 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 4a89eff7-8ffc-44ae-a36a-725fb906e310)
@@ -2220,6 +2245,31 @@
       (project "OptiprodV2"
         (path "/19de4d2e-807d-4105-96d5-33b255df2ff3"
           (reference "51K1") (unit 1)
+        )
+      )
+    )
+  )
+
+  (symbol (lib_id "PCM_4ms_Power-symbol:GND") (at 54.61 57.15 0) (unit 1)
+    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
+    (uuid cc02f262-caaa-4d78-a396-1fdaf18062d3)
+    (property "Reference" "#PWR05" (at 54.61 63.5 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Value" "GND" (at 54.61 62.23 0)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Footprint" "" (at 54.61 57.15 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Datasheet" "" (at 54.61 57.15 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (pin "1" (uuid f959e25c-3cd8-432b-9302-cbab9057144b))
+    (instances
+      (project "OptiprodV2"
+        (path "/19de4d2e-807d-4105-96d5-33b255df2ff3"
+          (reference "#PWR05") (unit 1)
         )
       )
     )
