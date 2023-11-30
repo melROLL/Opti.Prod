@@ -1884,7 +1884,7 @@
     (property "Value" "DS18B20" (at 52.07 153.67 0)
       (effects (font (size 1.27 1.27)) (justify right))
     )
-    (property "Footprint" "Package_TO_SOT_THT:TO-92_Inline" (at 33.02 158.75 0)
+    (property "Footprint" "Package_TO_SOT_THT:TO-92_Inline_Wide" (at 33.02 158.75 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "http://datasheets.maximintegrated.com/en/ds/DS18B20.pdf" (at 54.61 146.05 0)
@@ -2004,6 +2004,31 @@
     )
   )
 
+  (symbol (lib_id "PCM_4ms_Power-symbol:GND") (at 34.29 68.58 0) (unit 1)
+    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
+    (uuid 7b41e58b-dc14-433b-ae2b-d849839268e8)
+    (property "Reference" "#PWR011" (at 34.29 74.93 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Value" "GND" (at 34.29 73.66 0)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Footprint" "" (at 34.29 68.58 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Datasheet" "" (at 34.29 68.58 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (pin "1" (uuid 02f60391-20b6-4843-956d-7ac987d65f9e))
+    (instances
+      (project "OptiprodV2"
+        (path "/19de4d2e-807d-4105-96d5-33b255df2ff3"
+          (reference "#PWR011") (unit 1)
+        )
+      )
+    )
+  )
+
   (symbol (lib_id "Mechanical:MountingHole_Pad") (at 120.65 91.44 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 825d1159-800c-40c8-b8ff-e94f6942c87d)
@@ -2056,6 +2081,31 @@
       (project "OptiprodV2"
         (path "/19de4d2e-807d-4105-96d5-33b255df2ff3"
           (reference "MCP602") (unit 1)
+        )
+      )
+    )
+  )
+
+  (symbol (lib_id "Mechanical:MountingHole_Pad") (at 34.29 66.04 0) (unit 1)
+    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
+    (uuid 8fc66496-4280-4810-830e-ca22a42f96d6)
+    (property "Reference" "GNDIN2" (at 36.83 63.5 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Value" "MountingHole_Pad" (at 36.83 66.04 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Footprint" "Connector_Pin:Pin_D1.0mm_L10.0mm" (at 34.29 66.04 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Datasheet" "~" (at 34.29 66.04 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (pin "1" (uuid 2233c9ce-7621-403b-8c54-7257e0ea9682))
+    (instances
+      (project "OptiprodV2"
+        (path "/19de4d2e-807d-4105-96d5-33b255df2ff3"
+          (reference "GNDIN2") (unit 1)
         )
       )
     )
